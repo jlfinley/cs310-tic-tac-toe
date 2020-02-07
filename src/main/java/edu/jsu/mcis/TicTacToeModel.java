@@ -76,6 +76,13 @@ public class TicTacToeModel {
         /* Initialize board by filling every square with empty marks */
         
         // INSERT YOUR CODE HERE
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                board[i][j] = Mark.EMPTY;
+            }
+        }
         
     }
 	
@@ -88,8 +95,31 @@ public class TicTacToeModel {
            other player before returning TRUE.  Otherwise, return FALSE. */
         
         // INSERT YOUR CODE HERE
+        boolean markCheck = false;
         
-        return false; // remove this line later!
+        if ((isSquareMarked(row, col) == false) && (isValidSquare(row, col) == true))
+        {
+            if (xTurn)
+            {
+                board[row][col] = Mark.X;
+                xTurn = !xTurn;
+                markCheck = true;
+            }
+            
+            else
+            {
+                board[row][col] = Mark.O;
+                xTurn = !xTurn;
+                markCheck = true;
+            }
+        }
+        
+        else
+        {
+            markCheck = false;
+        }
+        
+        return markCheck;
         
     }
 	
@@ -98,8 +128,15 @@ public class TicTacToeModel {
         /* Return TRUE if the specified location is within the bounds of the board */
         
         // INSERT YOUR CODE HERE
-
-        return false; // remove this line later!
+        if ((row >= 0) && (row < width) && (col >= 0) && (col < width))
+        {
+            return true;
+        }
+        
+        else
+        {
+            return false;
+        }
         
     }
 	
@@ -108,8 +145,15 @@ public class TicTacToeModel {
         /* Return TRUE if the square at specified location is marked */
         
         // INSERT YOUR CODE HERE
-
-        return false; // remove this line later!
+        if ((board[row][col] == Mark.X) || (board[row][col] == Mark.O))
+            {
+                return true;
+            }
+                
+            else
+            {
+                return false;
+            }
             
     }
 	
@@ -118,8 +162,17 @@ public class TicTacToeModel {
         /* Return the mark from the square at the specified location */
         
         // INSERT YOUR CODE HERE
-
-        return null; // remove this line later!
+        if (isValidSquare(row, col)) {
+        
+            return board[row][col];
+            
+        }
+        
+        else {
+            
+            System.err.println("Invalid Square!");
+            return null;
+        }
             
     }
 	
@@ -130,8 +183,25 @@ public class TicTacToeModel {
            value */
         
         // INSERT YOUR CODE HERE
-
-        return null; // remove this line later!
+        if ((isTie() == true) && (!isMarkWin(Mark.X)) && (!isMarkWin(Mark.O)))
+        {
+            return Result.TIE;
+        }
+        
+        else if (isMarkWin(Mark.X) == true)
+        {
+            return Result.X;
+        }
+        
+        else if (isMarkWin(Mark.O) == true)
+        {
+            return Result.O;
+        }
+        
+        else
+        {
+            return Result.NONE;
+        }
         
     }
 	
@@ -151,8 +221,20 @@ public class TicTacToeModel {
         /* Check the squares of the board to see if the game is a tie */
         
         // INSERT YOUR CODE HERE
-
-        return false; // remove this line later!
+        boolean tieCheck = true;
+        
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (!isSquareMarked(i, j))
+                {
+                    tieCheck = false;
+                }
+            }
+        }
+        
+        return tieCheck;
         
     }
 
@@ -189,6 +271,23 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
         
+        for (int i = 0; i < width; ++i)
+        {
+            output.append(i);
+        }
+        
+        for (int i = 0; i < width; ++i)
+        {
+            output.append("\n").append(i).append(" ");
+            
+            for (int j = 0; j < width; ++j)
+            {
+                output.append(board[i][j].toString());
+            }
+            
+        }
+        
+        output.append("\n");
         return output.toString();
         
     }
