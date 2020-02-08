@@ -211,8 +211,82 @@ public class TicTacToeModel {
            winner */
         
         // INSERT YOUR CODE HERE
+        boolean horiWinCheck = false;
+        boolean vertWinCheck = false;
+        boolean diagWinCheckA = false;
+        boolean diagWinCheckB = false;
+        
+        boolean winCheck;
+        
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                // Horizontal Test //
+                if (board[i][0] == mark)
+                {
+                    horiWinCheck = true;
+                    
+                    for (int k = 0; k < width; k++)
+                    {
+                        if (board [i][k] != mark)
+                        {
+                            horiWinCheck = false;
+                            break;
+                        }
+                    }
+                }
 
-        return false; // remove this line later!
+                // Vertical Test //
+                else if (board[0][j] == mark)
+                {
+                    vertWinCheck = true;
+                    
+                    for (int k = 0; k < width; k++)
+                    {
+                        if (board[k][j] != mark)
+                        {
+                            vertWinCheck = false;
+                            break;
+                        }
+                    }
+                }
+                
+                // Diagonal Test #1 (left to right)
+                else if (board[0][0] == mark)
+                {
+                    diagWinCheckA = true;
+                    
+                    for (int k = 0; k < width; k++)
+                    {
+                        if (board[k][k] != mark)
+                        {
+                            diagWinCheckA = false;
+                            break;
+                        }
+                    }
+                }
+                
+                // Diagonal Test #2 (right to left)
+                else if (board[0][(width - 1)] == mark)
+                {
+                    diagWinCheckB = true;
+                    
+                    for (int k = 0; k < width; k++)
+                    {
+                        if (board[k][width - (1 + k)] != mark)
+                        {
+                            diagWinCheckB = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        winCheck = horiWinCheck || vertWinCheck || diagWinCheckA || diagWinCheckB;
+        
+        return winCheck;
 
     }
 	
@@ -270,7 +344,6 @@ public class TicTacToeModel {
         /* Output the board contents as a string (see examples) */
         
         // INSERT YOUR CODE HERE
-        
         for (int i = 0; i < width; ++i)
         {
             output.append(i);
